@@ -20,8 +20,20 @@ anchocam,altocam =640,480
 
 #captura de video 
 cap=cv2.VideoCapture(0)
-cap.set(3,ancho)#diferencia un ancho 
-cap.set(4,alto)#diferencia un alto
+cap.set(3,anchocam)#diferencia un ancho 
+cap.set(4,altocam)#diferencia un alto
+captura = cv2.VideoCapture(0)
+while True:
+    #se captura de camara a camara
+    (grabbed ,imagen ) = captura.read()
+    if not grabbed:
+        break
+
+    cv2.imshow("video Droidcam client",imagen)
+    tecla=cv2.waitKey(25) & 0xFF
+    if tecla==27:
+        break
+
 
 #funcionesdevoz 
 def text(image):
@@ -33,7 +45,7 @@ def text(image):
         lect.save(nombre)
     
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files(x86)\Tesseract-OCR'
-image=cv2.imread("captura.jpg")
+image=cv2.imread("captura.py")
 gris = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 texto=pytesseract.image_to_string(gris)
 print(texto)
